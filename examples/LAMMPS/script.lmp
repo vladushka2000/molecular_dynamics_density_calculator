@@ -1,0 +1,81 @@
+units metal
+dimension 3
+boundary p p p #periodic boundaries in all axes
+atom_style atomic
+pair_style lj/cut 10
+ 
+# 2) System definition
+#lattice fcc 3.52
+ 
+region simulation_box block -80.00 80.00 -40.00 40.00 -40.00 40.00
+create_box 1 simulation_box
+region particle_box block -40.00 40.00 -40.00 40.00 -40.00 40.00
+create_atoms 1 random 5000 111101 particle_box
+ 
+# 3) Simulation settings
+mass 1 16.05
+pair_coeff 1 1 0.0127 3.73
+neigh_modify every 1 delay 5 check yes
+ 
+#EQUILIBRATION
+ 
+velocity all create 100 111101
+ 
+thermo 1
+minimize 1.0e-4 1.0e-6 1000 10000
+ 
+thermo 5000
+fix 1 all nvt temp 100 100 1
+ 
+timestep 0.005
+run 10000
+ 
+timestep 0.005
+run 1000
+ 
+write_data file1.data
+ 
+timestep 0.005
+run 1000
+ 
+write_data file2.data
+ 
+timestep 0.005
+run 1000
+ 
+write_data file3.data
+ 
+timestep 0.005
+run 1000
+ 
+write_data file4.data
+ 
+timestep 0.005
+run 1000
+ 
+write_data file5.data
+ 
+timestep 0.005
+run 1000
+ 
+write_data file6.data
+ 
+timestep 0.005
+run 1000
+ 
+write_data file7.data
+ 
+timestep 0.005
+run 1000
+ 
+write_data file8.data
+ 
+timestep 0.005
+run 1000
+ 
+write_data file9.data
+ 
+timestep 0.005
+run 1000
+ 
+write_data file10.data
